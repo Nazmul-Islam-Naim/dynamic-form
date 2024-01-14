@@ -18,4 +18,8 @@ class Category extends Model
     public function forms() {
         return $this->hasMany(Form::class);
     }
+
+    public function formSubmissions () {
+        return $this->hasMany(FormSubmission::class);
+    }
 }

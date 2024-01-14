@@ -213,7 +213,7 @@
                                 </a>
                             </li>
                         @endif
-                        @if (auth()->user()->role->slug == 'administrations')
+                        @if (auth()->user()->role->slug == 'users')
                             <li>
                                 <a href="{{ route('formSubmissions.index') }}" class="nav-link link-dark">
                                     <svg class="bi me-2" width="16" height="16">
@@ -277,6 +277,18 @@
                                             <input type="text" name="{{ $form->field_type }}"
                                                 class="form-control" id="roleTitle" aria-describedby="roleTitle"
                                                 {!! $form->is_required == 1 ? 'required' : '' !!}>
+                                        </div>
+                                    @endif
+                                    @if ($form->field_type == 'checkbox')
+                                        <div class="mb-3 col-md-4">
+                                            <label for="roleTitle" class="form-label">{{ $form->level_name }}
+                                                {!! $form->is_required == 1 ? '<span class="text-danger">*</span>' : '' !!}</label><br>
+                                                @forelse (json_decode($form->options) as $option)
+                                                <input type="{{$form->field_type}}" name="{{$form->field_name}}[]" value="{{$option}}" autocomplete="off">
+                                                <label  for="btncheck3">{{$option}}</label>
+                                                @empty
+                                                    <label for="">no options...!</label>
+                                                @endforelse
                                         </div>
                                     @endif
 

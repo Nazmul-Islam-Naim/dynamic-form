@@ -213,7 +213,7 @@
                                 </a>
                             </li>
                         @endif
-                        @if (auth()->user()->role->slug == 'administrations')
+                        @if (auth()->user()->role->slug == 'users')
                             <li>
                                 <a href="{{ route('formSubmissions.index') }}" class="nav-link link-dark">
                                     <svg class="bi me-2" width="16" height="16">

@@ -6,6 +6,8 @@ use App\Models\Category;
 use App\Models\Form;
 use App\Models\FormSubmission;
 use Illuminate\Http\Request;
+use Illuminate\Support\Arr;
+use Illuminate\Support\Facades\Auth;
 
 class FormSubmissionController extends Controller
 {
@@ -43,7 +45,17 @@ class FormSubmissionController extends Controller
      */
     public function store(Request $request)
     {
-        // dd(json_encode($request->));
+        try {
+            $formData = $request->except('_token');
+            FormSubmission::create([
+                'category_id' => Arr::pull($formData, 'category_id'),
+                'user_id' => Auth::user()->id,
+                'form_data' => json_encode($formData)
+            ]);
+            return redirect()->back()->with('message', 'Form submitted.');
+        } catch (\Exception $exception) {
+            dd($exception->getMessage());
+        }
     }
 
     /**
